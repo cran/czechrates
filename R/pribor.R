@@ -4,7 +4,7 @@
 #'
 #' The function expects date input, and returns data frame of two or more columns - date, and relevant PRIBOR rate (as determined by `maturity` parameter).
 #'
-#' PRIBOR rates are reported as fractions, i.e. not as percentages (i.e. 1% is reported as .01, not 1).
+#' PRIBOR rates are reported as fractions, i.e. not as percentages (i.e. 1\% is reported as .01, not 1).
 #'
 #' For dates when no PRIBOR was quoted (e.g. weekends, Bank Holidays, such as December 24th on any year, or August 13th, 2002 when no PRIBOR was quoted due to catastrophic floods) no result will be returned.
 #'
@@ -33,7 +33,7 @@ pribor <- function(date = Sys.Date() - 1, maturity = "1D") {
     return(NULL)
   }
 
-  if (httr::http_error("https://www.cnb.cz/en/financial-markets/money-market/pribor/fixing-of-interest-rates-on-interbank-deposits-pribor/year.txt") | !cnb) { # ČNB website down
+  if (httr::http_error("https://www.cnb.cz/en/financial-markets/money-market/pribor/fixing-of-interest-rates-on-interbank-deposits-pribor/year.txt") | !cnb) { # CNB website down
     message("Data source broken.")
     return(NULL)
   }

@@ -4,7 +4,7 @@
 #'
 #' The function expects date input, and returns data frame of two columns - date, and relevant repo rate. It does not require maturity argument, as maturity is by definition 2W.
 #'
-#' Repo rates are reported as fractions, i.e. not as percentages (i.e. 1% is reported as .01, not 1).
+#' Repo rates are reported as fractions, i.e. not as percentages (i.e. 1\% is reported as .01, not 1).
 #'
 #' A single result will be reported for all dates higher than December 8th, 1995.
 #'
@@ -23,7 +23,7 @@ repo2w <- function(date = Sys.Date() - 1) {
   network <- as.logical(Sys.getenv("NETWORK_UP", unset = TRUE)) # dummy variable to allow testing of network
   cnb <- as.logical(Sys.getenv("CNB_UP", unset = TRUE)) # dummy variable to allow testing of network
 
-  remote_file <- "https://www.cnb.cz/cs/casto-kladene-dotazy/.galleries/vyvoj_repo_historie.txt" # path to ČNB source data
+  remote_file <- "https://www.cnb.cz/cs/casto-kladene-dotazy/.galleries/vyvoj_repo_historie.txt" # path to CNB source data
   local_file <- file.path(tempdir(), "vyvoj_repo_historie.txt") # local file - in tempdir
 
   if (!file.exists(local_file)) {
@@ -32,7 +32,7 @@ repo2w <- function(date = Sys.Date() - 1) {
       return(NULL)
     }
 
-    if (httr::http_error(remote_file) | !cnb) { # ČNB website down
+    if (httr::http_error(remote_file) | !cnb) { # CNB website down
       message("Data source broken.")
       return(NULL)
     }
