@@ -48,7 +48,7 @@ repo2w()
 repo2w(three_dates)
 
 
-## ----recent-development-------------------------------------------------------
+## ----recent-development-ir----------------------------------------------------
 library(czechrates)
 library(ggplot2)
 library(scales)
@@ -64,6 +64,36 @@ ggplot(data = policy_rate, aes(x = date_valid, y = REPO_2W)) +
   theme_bw() +
   labs(title = "COVID-19 impact on CZK policy rate",
        y = "ČNB REPO rate (per annum basis)") +
+  theme(axis.title.x = element_blank())
+
+
+## ----fx-rates-----------------------------------------------------------------
+# complete list of ČNB FX rates for yesterday
+cnbfxrate()
+
+# EUR/CZK rate for three specific dates (as defined in the PRIBOR section)
+cnbfxrate(three_dates, "EUR")
+
+
+## ----recent-development-fx----------------------------------------------------
+library(czechrates)
+library(ggplot2)
+library(scales)
+
+euro_rate <- cnbfxrate(seq(from = as.Date("2020-01-01"),
+                           to   = as.Date("2020-05-31"),
+                           by = 1),
+                       "EUR")
+
+ggplot(data = euro_rate, aes(x = date_valid, y = rate)) +
+  geom_line(color = "red", size = 1.25) +
+  scale_x_date(date_labels = "%d.%m.%Y") +
+  scale_y_continuous(labels = dollar_format(prefix = "",
+                                            suffix = " CZK",
+                                            accuracy = 1/100)) +
+  theme_bw() +
+  labs(title = "COVID-19 impact on CZK exchange rate",
+       y = "ČNB EUR/CZK FX rate") +
   theme(axis.title.x = element_blank())
 
 

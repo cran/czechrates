@@ -1,10 +1,10 @@
 ---
-title: "CZK Reference Interest Rates"
+title: "CZK Reference Rates"
 author: "Jindra Lacko"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{CZK_Reference_Interest_Rates}
+  %\VignetteIndexEntry{CZK_Reference_Rates}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -12,7 +12,6 @@ vignette: >
 ```{r, include = FALSE}
 knitr::opts_chunk$set(collapse = T, fig.align="center", dpi = 150, out.width = "100%", fig.width = 8, fig.height = 4, message = F)
 ```
-
 
 ## PRIBOR - PRague InterBank Offered Rate
 
@@ -77,7 +76,7 @@ The two-week repo rate (a key policy rate) is set directly by ČNB and also publ
 
 The `czechrates::repo2w()` function has but a single parameter (as maturity is by definition two weeks):
 
-- `date` = date valid for the two2week repo rate; default is yesterday (`Sys.Date() - 1`)
+- `date` = date valid for the two week repo rate; default is yesterday (`Sys.Date() - 1`)
 
 ```{r repo-rate}
 # two-week REPO rate for yesterday
@@ -90,7 +89,7 @@ repo2w(three_dates)
 
 To ilustrate the development of the main policy rate – i.e. `czechrates::repo2w()` – we can consider a more recent history:
 
-```{r recent-development}
+```{r recent-development-ir}
 library(czechrates)
 library(ggplot2)
 library(scales)
@@ -106,6 +105,57 @@ ggplot(data = policy_rate, aes(x = date_valid, y = REPO_2W)) +
   theme_bw() +
   labs(title = "COVID-19 impact on CZK policy rate",
        y = "ČNB REPO rate (per annum basis)") +
+  theme(axis.title.x = element_blank())
+
+```
+
+
+## ČNB FX rates
+
+The Czech National Bank publishes a list of CZK exchange rates daily. ČNB does not actually trade at these rates, but they are immensely influential. It is "the" official exchange rate, mandated for use in accounting, tax and customs purposes.
+
+The rates are available on CNB website: https://www.cnb.cz/cs/financni-trhy/devizovy-trh/kurzy-devizoveho-trhu/kurzy-devizoveho-trhu/
+
+The `czechrates::cnbfxrate()` function has two parameters:
+
+- `date` = date valid for the FX rate; default is yesterday (`Sys.Date() - 1`)
+
+- `specific_currency` ISO Code of currency, default is "ALL" / meaning a complete list of FX rates quoted for a given day
+
+As some currencies are not quoted per single unit (e.g. Indonesian rupiah is quoted per 1000 IDR, and Hungarian forint per 100 HUF) the function returns not only the rate, but also quoted amount per currency.
+
+
+```{r fx-rates}
+# complete list of ČNB FX rates for yesterday
+cnbfxrate()
+
+# EUR/CZK rate for three specific dates (as defined in the PRIBOR section)
+cnbfxrate(three_dates, "EUR")
+
+```
+
+
+For a graphic overview we can consider the EUR/CZK rate over the same period as for the main policy interest rate:
+
+```{r recent-development-fx}
+library(czechrates)
+library(ggplot2)
+library(scales)
+
+euro_rate <- cnbfxrate(seq(from = as.Date("2020-01-01"),
+                           to   = as.Date("2020-05-31"),
+                           by = 1),
+                       "EUR")
+
+ggplot(data = euro_rate, aes(x = date_valid, y = rate)) +
+  geom_line(color = "red", size = 1.25) +
+  scale_x_date(date_labels = "%d.%m.%Y") +
+  scale_y_continuous(labels = dollar_format(prefix = "",
+                                            suffix = " CZK",
+                                            accuracy = 1/100)) +
+  theme_bw() +
+  labs(title = "COVID-19 impact on CZK exchange rate",
+       y = "ČNB EUR/CZK FX rate") +
   theme(axis.title.x = element_blank())
 
 ```
