@@ -12,7 +12,7 @@
 
 <meta name="author" content="Jindra Lacko" />
 
-<meta name="date" content="2021-05-08" />
+<meta name="date" content="2021-05-25" />
 
 <title>CZK Reference Rates</title>
 
@@ -40,6 +40,7 @@
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
@@ -140,7 +141,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <h1 class="title toc-ignore">CZK Reference Rates</h1>
 <h4 class="author">Jindra Lacko</h4>
-<h4 class="date">2021-05-08</h4>
+<h4 class="date">2021-05-25</h4>
 
 
 
@@ -158,35 +159,37 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># PRIBOR: relying on default for both date and tenor</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">pribor</span>() </span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 0 x 2</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="do">## # … with 2 variables: date_valid &lt;date&gt;, PRIBOR_1D &lt;dbl&gt;</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># PRIBOR: specific date, default tenor</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">pribor</span>(<span class="fu">as.Date</span>(<span class="st">&quot;2020-05-20&quot;</span>)) </span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 1 x 2</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="do">##   date_valid PRIBOR_1D</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;date&gt;         &lt;dbl&gt;</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 2020-05-20    0.0025</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co"># three specific dates + a specific tenor (weekly rate)</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>three_dates <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="fu">c</span>(<span class="st">&quot;2020-05-11&quot;</span>, <span class="st">&quot;2020-05-12&quot;</span>, <span class="st">&quot;2020-05-13&quot;</span>))</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>three_dates</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;2020-05-11&quot; &quot;2020-05-12&quot; &quot;2020-05-13&quot;</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="fu">pribor</span>(three_dates, <span class="st">&quot;1W&quot;</span>)</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 3 x 2</span></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="do">##   date_valid PRIBOR_1W</span></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;date&gt;         &lt;dbl&gt;</span></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 2020-05-11    0.0028</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 2020-05-12    0.0028</span></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="do">## 3 2020-05-13    0.0028</span></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="co"># PRIBOR: four rates for a single date</span></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="fu">pribor</span>(<span class="fu">as.Date</span>(<span class="st">&quot;2020-05-20&quot;</span>), <span class="fu">c</span>(<span class="st">&quot;1D&quot;</span>, <span class="st">&quot;1W&quot;</span>, <span class="st">&quot;1M&quot;</span>, <span class="st">&quot;1Y&quot;</span>)) </span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 1 x 5</span></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="do">##   date_valid PRIBOR_1D PRIBOR_1W PRIBOR_1M PRIBOR_1Y</span></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;date&gt;         &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;</span></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 2020-05-20    0.0025    0.0027    0.0031    0.0041</span></span></code></pre></div>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 1 x 2</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="do">##   date_valid PRIBOR_1D</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;date&gt;         &lt;dbl&gt;</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 2021-05-24    0.0025</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># PRIBOR: specific date, default tenor</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">pribor</span>(<span class="fu">as.Date</span>(<span class="st">&quot;2020-05-20&quot;</span>)) </span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 1 x 2</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="do">##   date_valid PRIBOR_1D</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;date&gt;         &lt;dbl&gt;</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 2020-05-20    0.0025</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co"># three specific dates + a specific tenor (weekly rate)</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>three_dates <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="fu">c</span>(<span class="st">&quot;2020-05-11&quot;</span>, <span class="st">&quot;2020-05-12&quot;</span>, <span class="st">&quot;2020-05-13&quot;</span>))</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>three_dates</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;2020-05-11&quot; &quot;2020-05-12&quot; &quot;2020-05-13&quot;</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="fu">pribor</span>(three_dates, <span class="st">&quot;1W&quot;</span>)</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 3 x 2</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="do">##   date_valid PRIBOR_1W</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;date&gt;         &lt;dbl&gt;</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 2020-05-11    0.0028</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 2020-05-12    0.0028</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="do">## 3 2020-05-13    0.0028</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="co"># PRIBOR: four rates for a single date</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="fu">pribor</span>(<span class="fu">as.Date</span>(<span class="st">&quot;2020-05-20&quot;</span>), <span class="fu">c</span>(<span class="st">&quot;1D&quot;</span>, <span class="st">&quot;1W&quot;</span>, <span class="st">&quot;1M&quot;</span>, <span class="st">&quot;1Y&quot;</span>)) </span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 1 x 5</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="do">##   date_valid PRIBOR_1D PRIBOR_1W PRIBOR_1M PRIBOR_1Y</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;date&gt;         &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 2020-05-20    0.0025    0.0027    0.0031    0.0041</span></span></code></pre></div>
 <p>Using <code>czechrates::pribor()</code> you can re-live some of the scariest phases of the Prague interbank market - such as the period around Asian crisis of 1997 (when overnight rates briefly went over 100% on annual basis).</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(czechrates)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
@@ -218,7 +221,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 1 x 2</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="do">##   date_valid REPO_2W</span></span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;date&gt;       &lt;dbl&gt;</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 2021-05-07  0.0025</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 2021-05-24  0.0025</span></span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"># two-week REPO rate for three specific dates (as defined in the PRIBOR section)</span></span>
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="fu">repo2w</span>(three_dates)</span>
@@ -262,16 +265,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 33 x 4</span></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="do">##    date_valid currency_code amount  rate</span></span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="do">##    &lt;date&gt;     &lt;chr&gt;          &lt;dbl&gt; &lt;dbl&gt;</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="do">##  1 2021-05-07 AUD                1 16.5 </span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="do">##  2 2021-05-07 BGN                1 13.1 </span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="do">##  3 2021-05-07 BRL                1  4.03</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  4 2021-05-07 CAD                1 17.5 </span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  5 2021-05-07 CHF                1 23.4 </span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  6 2021-05-07 CNY                1  3.30</span></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  7 2021-05-07 DKK                1  3.45</span></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="do">##  8 2021-05-07 EUR                1 25.7 </span></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="do">##  9 2021-05-07 GBP                1 29.6 </span></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="do">## 10 2021-05-07 HKD                1  2.74</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="do">##  1 2021-05-24 AUD                1 16.1 </span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="do">##  2 2021-05-24 BGN                1 13.0 </span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="do">##  3 2021-05-24 BRL                1  3.90</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  4 2021-05-24 CAD                1 17.3 </span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  5 2021-05-24 CHF                1 23.2 </span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  6 2021-05-24 CNY                1  3.24</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  7 2021-05-24 DKK                1  3.42</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="do">##  8 2021-05-24 EUR                1 25.4 </span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="do">##  9 2021-05-24 GBP                1 29.4 </span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="do">## 10 2021-05-24 HKD                1  2.68</span></span>
 <span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="do">## # … with 23 more rows</span></span>
 <span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="co"># EUR/CZK rate for three specific dates (as defined in the PRIBOR section)</span></span>
