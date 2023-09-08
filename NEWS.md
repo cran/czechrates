@@ -1,3 +1,11 @@
+## version 0.2.4 (2023-09-09)
+
+ - minor update to resolve CRAN check issues
+
+## version 0.2.3
+  
+  - minor update of DESCRIPTION (Authors@R format)
+
 ## version 0.2.2
 
   - minor update of encoding related issues (CRAN check fail)

@@ -1,10 +1,15 @@
 Package: czechrates
 Type: Package
 Title: Czech Interest & Foreign Exchange Rates
-Version: 0.2.2
-Date: 2021-05-25
-Author: 
-  Jindra Lacko
+Version: 0.2.4
+Date: 2023-09-09
+Authors@R: c(
+    person(given = "Jindra", 
+           family = "Lacko", 
+           email = "jindra.lacko@gmail.com", 
+           role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-0375-5156"))
+    )
 Maintainer: Jindra Lacko <jindra.lacko@gmail.com>
 Description: 
   Interface to interest and foreign exchange rates published by the Czech National Bank.
@@ -14,9 +19,10 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 Imports: curl, httr, readr, dplyr (>= 1.0.0), magrittr, tibble, tidyr
 Suggests: testthat, rmarkdown, ggplot2, scales, knitr, covr
-RoxygenNote: 7.1.1
+RoxygenNote: 7.2.3
 VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2021-05-25 20:22:22 UTC; jindra
+Packaged: 2023-09-08 12:27:19 UTC; jindra
+Author: Jindra Lacko [aut, cre] (<https://orcid.org/0000-0002-0375-5156>)
 Repository: CRAN
-Date/Publication: 2021-05-25 20:30:06 UTC
+Date/Publication: 2023-09-08 12:40:02 UTC
